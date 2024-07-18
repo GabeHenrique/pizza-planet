@@ -3,7 +3,7 @@ import "express-async-errors";
 import {router} from "./routes";
 import dotenv from "dotenv";
 import cors from "cors";
-import {ResourceNotFoundError} from "../handlers/errors/ResourceNotFoundError";
+import {ResourceNotFoundException} from "../handlers/errors/ResourceNotFoundException";
 
 dotenv.config()
 

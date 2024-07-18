@@ -1,4 +1,4 @@
-export class ResourceNotFoundError implements Error {
+export class ResourceNotFoundException implements Error {
 
   name: string;
   message: string;
