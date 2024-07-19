@@ -13,11 +13,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
   id         String    @id @default(uuid())
   name       String
   email      String
   password   String
+  role       Role      @default(USER)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
@@ -29,25 +35,25 @@ model Category {
   name       String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  products   Product[]
 
   @@map("categories")
-  products Product[]
 }
 
 model Product {
-  id String @id @default(uuid())
-  name String
-  price Float
+  id          String    @id @default(uuid())
+  name        String
+  price       Float
   description String
-  banner String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  banner      String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
 
-  category Category @relation(fields: [category_id], references: [id])
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id String
+  items       Item[]
 
   @@map("products")
-  category_id String
-  items Item[]
 }
 
 // enum OrderStatus {
@@ -57,28 +63,28 @@ model Product {
 // }
 
 model Order {
-  id String @id @default(uuid())
-  table Int
-  status Boolean @default(false)
-  draft Boolean @default(true)
-  name String?
+  id         String    @id @default(uuid())
+  table      Int
+  status     Boolean   @default(false)
+  draft      Boolean   @default(true)
+  name       String?
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  items      Item[]
 
   @@map("orders")
-  items Item[]
 }
 
 model Item {
-  id String @id @default(uuid())
-  amount Int
+  id         String    @id @default(uuid())
+  amount     Int
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  order Order @relation(fields: [order_id], references: [id])
-  product Product @relation(fields: [product_id],references: [id])
+  order      Order   @relation(fields: [order_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
+  order_id   String
+  product_id String
 
   @@map("items")
-  order_id String
-  product_id String
 }
