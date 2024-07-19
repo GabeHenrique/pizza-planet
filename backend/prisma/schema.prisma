@@ -50,6 +50,12 @@ model Product {
   items Item[]
 }
 
+// enum OrderStatus {
+//   PENDING
+//   ACCEPTED
+//   CLOSED
+// }
+
 model Order {
   id String @id @default(uuid())
   table Int

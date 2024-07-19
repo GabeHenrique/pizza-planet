@@ -3,9 +3,10 @@ import {CreateCategoryService} from "../../services/category/CreateCategoryServi
 
 export class CreateCategoryController {
   async handle(req: Request, res: Response) {
+    const {name} = req.body;
     const createCategoryService = new CreateCategoryService();
-    const result = createCategoryService.execute();
+    const category = await createCategoryService.execute({name});
 
-    return res.json(result);
+    return res.json(category);
   }
 }

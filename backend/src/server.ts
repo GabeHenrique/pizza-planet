@@ -3,7 +3,7 @@ import "express-async-errors";
 import {router} from "./routes";
 import dotenv from "dotenv";
 import cors from "cors";
-import {ResourceNotFoundException} from "../handlers/errors/ResourceNotFoundException";
+import path from 'path';
 
 dotenv.config()
 
@@ -12,7 +12,10 @@ app.use(express.json());
 app.use(cors())
 
 app.use(router);
-
+app.use(
+  '/files',
+  express.static(path.resolve(__dirname, '..', 'temp'))
+);
 const serverPort = process.env.PORT || 2565;
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

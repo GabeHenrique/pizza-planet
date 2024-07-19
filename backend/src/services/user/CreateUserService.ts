@@ -1,7 +1,7 @@
 import {prismaClient} from "../../prisma";
 import {hash} from "bcryptjs";
 
-export interface CreateUserRequestIn {
+export type CreateUserRequestIn = {
   name: string,
   email: string,
   password: string
