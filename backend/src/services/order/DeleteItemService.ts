@@ -11,7 +11,7 @@ export class DeleteItemService {
     });
 
     if (!orderItem) {
-      throw new Error("Order doesn't exists")
+      throw new Error("Order or item doesn't exists")
     }
 
     return prismaClient.order.delete({
